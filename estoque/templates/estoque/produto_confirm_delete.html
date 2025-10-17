@@ -1,0 +1,32 @@
+{% extends 'estoque/base.html' %}
+
+{% block title %}Excluir {{ object.nome }}{% endblock %}
+
+{% block content %}
+    <h2>Confirmar Exclusão</h2>
+    
+    <p><strong>Tem certeza que deseja excluir este produto?</strong></p>
+    
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <td>{{ object.nome }}</td>
+        </tr>
+        <tr>
+            <th>Preço</th>
+            <td>R$ {{ object.preco }}</td>
+        </tr>
+        <tr>
+            <th>Estoque</th>
+            <td>{{ object.estoque }} unidades</td>
+        </tr>
+    </table>
+
+    <p><strong>ATENÇÃO:</strong> Esta ação não pode ser desfeita. O produto será permanentemente removido do sistema.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">SIM, Excluir Produto</button>
+        <a href="{% url 'detalhe_produto' object.pk %}">NÃO, Cancelar</a>
+    </form>
+{% endblock %}

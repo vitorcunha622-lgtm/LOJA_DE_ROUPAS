@@ -1,0 +1,14 @@
+# Pasta do Ambiente Virtual
+venv/
+env/
+
+# Arquivos gerados pelo Django
+__pycache__/
+*.pyc
+db.sqlite3
+/staticfiles/
+/media/
+
+# Chaves de Segurança
+.env
+secret_key.txt

@@ -1,0 +1,47 @@
+{% extends 'estoque/base.html' %}
+
+{% block title %}Lista de Produtos{% endblock %}
+
+{% block content %}
+    <h2>Lista de Produtos</h2>
+    
+    <p><a href="{% url 'criar_produto' %}">[+] Adicionar Novo Produto</a></p>
+    
+    {% if object_list %}
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in object_list %}
+                <tr>
+                    <td>{{ produto.nome }}</td>
+                    <td>
+                        {% if produto.descricao %}
+                            {{ produto.descricao|truncatewords:10 }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>R$ {{ produto.preco }}</td>
+                    <td>{{ produto.estoque }} unidades</td>
+                    <td>
+                        <a href="{% url 'detalhe_produto' produto.pk %}">Ver</a> |
+                        <a href="{% url 'editar_produto' produto.pk %}">Editar</a> |
+                        <a href="{% url 'excluir_produto' produto.pk %}">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p><strong>Nenhum produto cadastrado.</strong></p>
+        <p><a href="{% url 'criar_produto' %}">Cadastrar Primeiro Produto</a></p>
+    {% endif %}
+{% endblock %}

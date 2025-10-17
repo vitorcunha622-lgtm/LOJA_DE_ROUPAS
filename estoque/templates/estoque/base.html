@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Estoque de Roupas{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Estoque de Roupas</h1>
+        <nav>
+            <a href="{% url 'lista_produtos' %}">Lista de Produtos</a> | 
+            <a href="{% url 'criar_produto' %}">Novo Produto</a>
+        </nav>
+        <hr>
+    </header>
+
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+                <p><strong>{{ message }}</strong></p>
+            {% endfor %}
+        {% endif %}
+        
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <hr>
+        <p>Sistema de Estoque - Trabalho em Grupo</p>
+    </footer>
+</body>
+</html>

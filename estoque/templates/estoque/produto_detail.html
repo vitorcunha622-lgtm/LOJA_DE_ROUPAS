@@ -1,0 +1,43 @@
+{% extends 'estoque/base.html' %}
+
+{% block title %}{{ object.nome }} - Detalhes{% endblock %}
+
+{% block content %}
+    <h2>{{ object.nome }}</h2>
+    
+    <p>
+        <a href="{% url 'editar_produto' object.pk %}">[Editar]</a>
+        <a href="{% url 'excluir_produto' object.pk %}">[Excluir]</a>
+        <a href="{% url 'lista_produtos' %}">[Voltar à Lista]</a>
+    </p>
+
+    <table border="1" width="100%">
+        <tr>
+            <th width="20%">Nome</th>
+            <td>{{ object.nome }}</td>
+        </tr>
+        <tr>
+            <th>Descrição</th>
+            <td>
+                {% if object.descricao %}
+                    {{ object.descricao|linebreaksbr }}
+                {% else %}
+                    <em>Nenhuma descrição fornecida</em>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Preço</th>
+            <td><strong>R$ {{ object.preco }}</strong></td>
+        </tr>
+        <tr>
+            <th>Estoque</th>
+            <td><strong>{{ object.estoque }} unidades</strong></td>
+        </tr>
+    </table>
+
+    <br>
+    <div>
+        <p><strong>ID do Produto:</strong> {{ object.id }}</p>
+    </div>
+{% endblock %}
