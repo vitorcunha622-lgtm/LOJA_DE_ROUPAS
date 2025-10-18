@@ -29,7 +29,7 @@ Siga estas instruções para configurar e rodar o projeto em sua máquina.
 
 ### Pré-requisitos
 
-Você precisa ter o **Python** (versão 3.x) e o **Git** instalados em seu sistema.
+Você precisa ter o **Python** (versão 3.13) e o **Git** instalados em seu sistema.
 
 ### 1. Clonar o Repositório
 
