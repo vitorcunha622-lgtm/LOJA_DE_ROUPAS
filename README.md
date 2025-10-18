@@ -1,3 +1,9 @@
+git clone [https://github.com/vitorcunha622-lgtm/loja-de-roupa.git](https://github.com/vitorcunha622-lgtm/loja-de-roupa.git)
+cd LOJA_DE_ROUPAS
+
+🚀 Template README.md para Projeto Django
+Markdown
+
 # 🛍️ [Nome do Projeto]: CRUD de Loja de Roupas
 
 ## 📋 Sobre o Projeto
@@ -38,6 +44,10 @@ Abra seu terminal e navegue até o diretório onde deseja salvar o projeto:
 ```bash
 git clone [https://github.com/vitorcunha622-lgtm/loja-de-roupa.git](https://github.com/vitorcunha622-lgtm/loja-de-roupa.git)
 cd LOJA_DE_ROUPAS
+2. Configurar o Ambiente Virtual (VENV)
+Crie e ative o ambiente virtual para isolar as dependências:
+
+Bash
 
 # Cria o ambiente virtual
 python -m venv venv
@@ -47,14 +57,22 @@ python -m venv venv
 
 # Ativa o ambiente virtual (Linux/macOS)
 # source venv/bin/activate
+3. Instalar as Dependências
+Com o ambiente ativado, instale todas as bibliotecas listadas no requirements.txt:
+
+Bash
 
 (venv) pip install -r requirements.txt
+4. Rodar o Projeto
+Aplique as migrações do banco de dados e inicie o servidor local:
+
+Bash
 
 (venv) python manage.py migrate
 (venv) python manage.py runserver
-
 O projeto estará acessível em: http://127.0.0.1:8000/
-Autor(es)
-Victor - @SeuUsuarioNoGitHub
 
-Rhuan - @Colega1
+👤 Autor(es)
+[Victor] - @SeuUsuarioNoGitHub
+
+[Rhuan] - @Colega1
