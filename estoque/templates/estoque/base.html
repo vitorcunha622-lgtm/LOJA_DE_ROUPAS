@@ -2,32 +2,129 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Estoque de Roupas{% endblock %}</title>
+
+    <style>
+        /* 🎨 Estilos Globais e Reset */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9; /* Fundo suave */
+            color: #333;
+        }
+
+        /* 🖼️ Layout Principal */
+        #container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ocupa a altura total da viewport */
+        }
+
+        main {
+            flex-grow: 1; /* Faz o conteúdo principal crescer e empurrar o rodapé */
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto; /* Centraliza o conteúdo */
+            width: 100%;
+            box-sizing: border-box; /* Inclui padding na largura */
+        }
+
+        /* 🏷️ Cabeçalho (Header) */
+        header {
+            background-color: #007bff; /* Azul primário */
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+        }
+
+        /* 🧭 Navegação (Nav) */
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffc107; /* Amarelo no hover */
+            border-bottom: 2px solid #ffc107;
+        }
+
+        /* 📢 Mensagens */
+        .message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        /* 🦶 Rodapé (Footer) */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.9em;
+            margin-top: auto; /* Garante que fique no final */
+        }
+
+        footer hr {
+            display: none; /* Remove a linha horizontal antiga */
+        }
+
+        /* 📏 Separadores (hr) dentro do header */
+        header hr {
+            border: none;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3); /* Linha mais suave */
+            margin: 10px 0;
+        }
+
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Vérie</h1>
-        <nav>
-            <a href="{% url 'lista_produtos' %}">Lista de Produtos</a> | 
-            <a href="{% url 'criar_produto' %}">Novo Produto</a>
-        </nav>
-        <hr>
-    </header>
+    <div id="container">
+        <header>
+            <h1>Vérie</h1>
+            <nav>
+                <a href="{% url 'lista_produtos' %}">Lista de Produtos</a> 
+                <a href="{% url 'criar_produto' %}">Novo Produto</a>
+            </nav>
+            <hr>
+        </header>
 
-    <main>
-        {% if messages %}
-            {% for message in messages %}
-                <p><strong>{{ message }}</strong></p>
-            {% endfor %}
-        {% endif %}
-        
-        {% block content %}
-        {% endblock %}
-    </main>
+        <main>
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="message"><strong>{{ message }}</strong></p>
+                {% endfor %}
+            {% endif %}
+            
+            {% block content %}
+            {% endblock %}
+        </main>
 
-    <footer>
-        <hr>
-        <p>Sistema de Estoque - Trabalho em Grupo</p>
-    </footer>
+        <footer>
+            <hr>
+            <p>Sistema de Estoque - Trabalho em Grupo</p>
+        </footer>
+    </div>
 </body>
 </html>

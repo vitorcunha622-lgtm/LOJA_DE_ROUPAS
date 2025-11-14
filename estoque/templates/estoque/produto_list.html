@@ -3,12 +3,118 @@
 {% block title %}Lista de Produtos{% endblock %}
 
 {% block content %}
+    <style>
+        /* 📝 Estilos Específicos para a Lista de Produtos */
+
+        h2 {
+            color: #343a40; /* Título escuro */
+            margin-bottom: 20px;
+        }
+
+        /* ➕ Botão Adicionar Produto */
+        .add-button-container {
+            margin-bottom: 20px;
+            text-align: right; /* Alinha o botão à direita */
+        }
+
+        .add-button-container a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #28a745; /* Verde de sucesso/adição */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-button-container a:hover {
+            background-color: #1e7e34;
+        }
+
+        /* 📊 Tabela de Dados */
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+            background-color: white;
+        }
+
+        .product-table th, .product-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .product-table th {
+            background-color: #f8f9fa; /* Fundo leve para o cabeçalho */
+            color: #495057;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        /* Efeito Zebrado (Striping) */
+        .product-table tbody tr:nth-child(odd) {
+            background-color: #f8f9fa; /* Linhas ímpares com fundo claro */
+        }
+        
+        /* 📦 Destaque para Estoque e Preço */
+        .product-table td:nth-child(3), /* Coluna Preço */
+        .product-table td:nth-child(4) { /* Coluna Estoque */
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        /* 🔗 Links de Ação na Tabela */
+        .action-links-table a {
+            text-decoration: none;
+            font-size: 0.8em;
+            padding: 5px 8px;
+            margin: 0 2px;
+            border-radius: 3px;
+            display: inline-block;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+
+        .action-links-table a:nth-child(1) { /* Ver */
+            background-color: #007bff;
+            color: white;
+        }
+        .action-links-table a:nth-child(2) { /* Editar */
+            background-color: #ffc107;
+            color: #343a40;
+        }
+        .action-links-table a:nth-child(3) { /* Excluir */
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .action-links-table a:hover {
+            opacity: 0.8;
+        }
+
+        /* 🚫 Lista Vazia */
+        .empty-list p {
+            font-size: 1.1em;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px dashed #dee2e6;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+    </style>
+
     <h2>Lista de Produtos</h2>
     
-    <p><a href="{% url 'criar_produto' %}">[+] Adicionar Novo Produto</a></p>
+    <div class="add-button-container">
+        <a href="{% url 'criar_produto' %}">➕ Adicionar Novo Produto</a>
+    </div>
     
     {% if object_list %}
-        <table border="1" width="100%">
+        <table class="product-table">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -26,14 +132,14 @@
                         {% if produto.descricao %}
                             {{ produto.descricao|truncatewords:10 }}
                         {% else %}
-                            -
+                            <span style="color: #6c757d;">-</span>
                         {% endif %}
                     </td>
                     <td>R$ {{ produto.preco }}</td>
-                    <td>{{ produto.estoque }} unidades</td>
-                    <td>
-                        <a href="{% url 'detalhe_produto' produto.pk %}">Ver</a> |
-                        <a href="{% url 'editar_produto' produto.pk %}">Editar</a> |
+                    <td>{{ produto.estoque }}</td>
+                    <td class="action-links-table">
+                        <a href="{% url 'detalhe_produto' produto.pk %}">Ver</a> 
+                        <a href="{% url 'editar_produto' produto.pk %}">Editar</a> 
                         <a href="{% url 'excluir_produto' produto.pk %}">Excluir</a>
                     </td>
                 </tr>
@@ -41,7 +147,9 @@
             </tbody>
         </table>
     {% else %}
-        <p><strong>Nenhum produto cadastrado.</strong></p>
-        <p><a href="{% url 'criar_produto' %}">Cadastrar Primeiro Produto</a></p>
+        <div class="empty-list">
+            <p><strong>Nenhum produto cadastrado.</strong></p>
+            <p><a href="{% url 'criar_produto' %}">Cadastrar Primeiro Produto</a></p>
+        </div>
     {% endif %}
 {% endblock %}

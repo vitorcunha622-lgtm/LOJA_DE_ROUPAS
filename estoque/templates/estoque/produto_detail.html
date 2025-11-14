@@ -3,17 +3,119 @@
 {% block title %}{{ object.nome }} - Detalhes{% endblock %}
 
 {% block content %}
-    <h2>{{ object.nome }}</h2>
+    <style>
+        /* 📋 Estilos Específicos para a Página de Detalhes */
+
+        h2 {
+            color: #007bff; /* Título em azul primário */
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* 🔗 Área de Ações */
+        .action-links {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            font-size: 0.95em;
+        }
+
+        .action-links a {
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Editar - Amarelo/Laranja */
+        .action-links a:nth-child(1) { /* O primeiro link (Editar) */
+            background-color: #ffc107;
+            color: #343a40;
+        }
+        .action-links a:nth-child(1):hover {
+            background-color: #e0a800;
+        }
+
+        /* Excluir - Vermelho */
+        .action-links a:nth-child(2) { /* O segundo link (Excluir) */
+            background-color: #dc3545;
+            color: white;
+        }
+        .action-links a:nth-child(2):hover {
+            background-color: #c82333;
+        }
+
+        /* Voltar - Azul Secundário */
+        .action-links a:nth-child(3) { /* O terceiro link (Voltar) */
+            background-color: #6c757d;
+            color: white;
+        }
+        .action-links a:nth-child(3):hover {
+            background-color: #5a6268;
+        }
+
+        /* 📜 Tabela de Detalhes */
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            border: 1px solid #dee2e6;
+        }
+
+        .detail-table th, .detail-table td {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: top; /* Alinha o conteúdo ao topo nas células */
+        }
+
+        .detail-table th {
+            background-color: #f8f9fa;
+            text-align: left;
+            font-weight: bold;
+            width: 20%; /* Mantém a largura para a coluna de títulos */
+            color: #495057;
+        }
+
+        .detail-table tr:last-child th,
+        .detail-table tr:last-child td {
+            border-bottom: none; /* Remove a borda inferior da última linha */
+        }
+
+        /* 💡 Destaque para Preço e Estoque */
+        .highlight {
+            font-size: 1.1em;
+            color: #28a745; /* Cor verde para destaque */
+            font-weight: 700;
+        }
+
+        /* Descrição vazia */
+        .detail-table em {
+            color: #6c757d;
+        }
+        
+        /* 🆔 Informação Adicional */
+        .info-box {
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+    </style>
+
+    <h2>Detalhes do Produto: **{{ object.nome }}**</h2>
     
-    <p>
-        <a href="{% url 'editar_produto' object.pk %}">[Editar]</a>
-        <a href="{% url 'excluir_produto' object.pk %}">[Excluir]</a>
-        <a href="{% url 'lista_produtos' %}">[Voltar à Lista]</a>
+    <p class="action-links">
+        <a href="{% url 'editar_produto' object.pk %}">✏️ Editar</a>
+        <a href="{% url 'excluir_produto' object.pk %}">🗑️ Excluir</a>
+        <a href="{% url 'lista_produtos' %}">↩️ Voltar à Lista</a>
     </p>
 
-    <table border="1" width="100%">
+    <table class="detail-table">
         <tr>
-            <th width="20%">Nome</th>
+            <th>Nome</th>
             <td>{{ object.nome }}</td>
         </tr>
         <tr>
@@ -28,16 +130,15 @@
         </tr>
         <tr>
             <th>Preço</th>
-            <td><strong>R$ {{ object.preco }}</strong></td>
+            <td><span class="highlight">R$ {{ object.preco }}</span></td>
         </tr>
         <tr>
             <th>Estoque</th>
-            <td><strong>{{ object.estoque }} unidades</strong></td>
+            <td><span class="highlight">{{ object.estoque }} unidades</span></td>
         </tr>
     </table>
 
-    <br>
-    <div>
+    <div class="info-box">
         <p><strong>ID do Produto:</strong> {{ object.id }}</p>
     </div>
 {% endblock %}

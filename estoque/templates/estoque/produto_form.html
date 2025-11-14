@@ -5,11 +5,136 @@
 {% endblock %}
 
 {% block content %}
+    <style>
+        /* 📝 Estilos Específicos para Formulários */
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        /* 📦 Estilo do Contêiner do Formulário */
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 🖼️ Tabela (Layout de Formulário) */
+        form table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        form table tr {
+            border-bottom: 1px solid #f0f0f0; /* Separador sutil */
+        }
+        
+        form table tr:last-child {
+            border-bottom: none;
+        }
+
+        form td {
+            padding: 15px 0;
+        }
+
+        /* 🏷️ Labels */
+        form label {
+            display: block;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        form table td:first-child {
+            width: 30%; /* Largura para a coluna de labels */
+            padding-right: 20px;
+        }
+
+        /* ✏️ Campos de Entrada (Input/Textarea) */
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box; /* Garante que padding não adicione largura */
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        input[type="number"] {
+            max-width: 150px; /* Limita a largura dos campos numéricos */
+            text-align: right;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+        
+        textarea {
+            resize: vertical; /* Permite redimensionar verticalmente */
+        }
+
+        /* ⚙️ Área de Ações (Botões) */
+        .form-actions-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end; /* Alinha os botões à direita */
+            padding-top: 20px;
+        }
+
+        .form-actions-buttons button, 
+        .form-actions-buttons a {
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Botão Principal (Cadastrar/Atualizar) */
+        .form-actions-buttons button[type="submit"] {
+            background-color: #28a745; /* Verde para ação principal */
+            color: white;
+            border: 1px solid #28a745;
+        }
+        
+        .form-actions-buttons button[type="submit"]:hover {
+            background-color: #1e7e34;
+            border-color: #1c7430;
+        }
+
+        /* Botão Cancelar (Secundário) */
+        .form-actions-buttons a {
+            background-color: #6c757d; /* Cinza para cancelar */
+            color: white;
+            border: 1px solid #6c757d;
+        }
+
+        .form-actions-buttons a:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+    </style>
+
     <h2>
         {% if object %}
-            Editar Produto: {{ object.nome }}
+            ✏️ Editar Produto: **{{ object.nome }}**
         {% else %}
-            Adicionar Novo Produto
+            ✨ Adicionar Novo Produto
         {% endif %}
     </h2>
 
@@ -19,26 +144,35 @@
         <table>
             <tr>
                 <td><label for="nome">Nome do Produto:</label></td>
-                <td><input type="text" name="nome" id="nome" value="{{ form.nome.value|default:'' }}" size="50" required></td>
+                <td>
+                    <input type="text" name="nome" id="nome" value="{{ form.nome.value|default:'' }}" size="50" required>
+                    </td>
             </tr>
             <tr>
                 <td><label for="descricao">Descrição:</label></td>
-                <td><textarea name="descricao" id="descricao" rows="4" cols="50">{{ form.descricao.value|default:'' }}</textarea></td>
+                <td>
+                    <textarea name="descricao" id="descricao" rows="4" cols="50">{{ form.descricao.value|default:'' }}</textarea>
+                </td>
             </tr>
             <tr>
                 <td><label for="preco">Preço (R$):</label></td>
-                <td><input type="number" step="0.01" name="preco" id="preco" value="{{ form.preco.value|default:'' }}" required></td>
+                <td>
+                    <input type="number" step="0.01" name="preco" id="preco" value="{{ form.preco.value|default:'' }}" required>
+                </td>
             </tr>
             <tr>
                 <td><label for="estoque">Estoque:</label></td>
-                <td><input type="number" name="estoque" id="estoque" value="{{ form.estoque.value|default:'0' }}" required></td>
+                <td>
+                    <input type="number" name="estoque" id="estoque" value="{{ form.estoque.value|default:'0' }}" required>
+                </td>
             </tr>
         </table>
         
-        <br>
-        <button type="submit">
-            {% if object %}Atualizar{% else %}Cadastrar{% endif %} Produto
-        </button>
-        <a href="{% url 'lista_produtos' %}">Cancelar</a>
+        <div class="form-actions-buttons">
+            <a href="{% url 'lista_produtos' %}">Cancelar</a>
+            <button type="submit">
+                {% if object %}Atualizar{% else %}Cadastrar{% endif %} Produto
+            </button>
+        </div>
     </form>
 {% endblock %}

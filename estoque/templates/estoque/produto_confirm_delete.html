@@ -3,30 +3,142 @@
 {% block title %}Excluir {{ object.nome }}{% endblock %}
 
 {% block content %}
-    <h2>Confirmar Exclusão</h2>
-    
-    <p><strong>Tem certeza que deseja excluir este produto?</strong></p>
-    
-    <table border="1">
-        <tr>
-            <th>Nome</th>
-            <td>{{ object.nome }}</td>
-        </tr>
-        <tr>
-            <th>Preço</th>
-            <td>R$ {{ object.preco }}</td>
-        </tr>
-        <tr>
-            <th>Estoque</th>
-            <td>{{ object.estoque }} unidades</td>
-        </tr>
-    </table>
+    <style>
+        /* 🚨 Estilos Específicos para a Página de Exclusão */
 
-    <p><strong>ATENÇÃO:</strong> Esta ação não pode ser desfeita. O produto será permanentemente removido do sistema.</p>
+        .delete-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 30px auto;
+            text-align: center;
+            border-top: 5px solid #dc3545; /* Borda vermelha de alerta */
+        }
 
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">SIM, Excluir Produto</button>
-        <a href="{% url 'detalhe_produto' object.pk %}">NÃO, Cancelar</a>
-    </form>
+        .delete-card h2 {
+            color: #dc3545; /* Título em vermelho */
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+
+        .delete-card p {
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+
+        /* 📋 Estilo da Tabela de Detalhes */
+        .delete-card table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+
+        .delete-card th, .delete-card td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .delete-card th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #495057;
+            width: 30%;
+        }
+
+        .delete-card td {
+            font-weight: 500;
+        }
+
+        /* ⚠️ Mensagem de Aviso */
+        .delete-card .warning {
+            background-color: #fff3cd; /* Fundo amarelo claro */
+            color: #856404;
+            padding: 15px;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* ⚙️ Estilo dos Botões */
+        .form-actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espaço entre os botões */
+        }
+
+        .form-actions button, .form-actions a {
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Botão de Excluir (Principal, Vermelho) */
+        .form-actions button[type="submit"] {
+            background-color: #dc3545; /* Vermelho forte */
+            color: white;
+            border: 1px solid #dc3545;
+        }
+
+        .form-actions button[type="submit"]:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        /* Botão de Cancelar (Secundário) */
+        .form-actions a {
+            background-color: #6c757d; /* Cinza discreto */
+            color: white;
+            border: 1px solid #6c757d;
+        }
+
+        .form-actions a:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+    </style>
+
+    <div class="delete-card">
+        <h2><span role="img" aria-label="Aviso">🚫</span> Confirmar Exclusão</h2>
+        
+        <p><strong>Tem certeza que deseja excluir este produto?</strong></p>
+        
+        <table>
+            <tr>
+                <th>Nome</th>
+                <td>{{ object.nome }}</td>
+            </tr>
+            <tr>
+                <th>Preço</th>
+                <td>R$ {{ object.preco }}</td>
+            </tr>
+            <tr>
+                <th>Estoque</th>
+                <td>{{ object.estoque }} unidades</td>
+            </tr>
+        </table>
+
+        <p class="warning">
+            <span role="img" aria-label="Exclamação">‼️</span> 
+            Esta ação não pode ser desfeita. O produto será **permanentemente removido** do sistema.
+        </p>
+
+        <form method="post" class="form-actions">
+            {% csrf_token %}
+            <a href="{% url 'detalhe_produto' object.pk %}">NÃO, Cancelar</a>
+            <button type="submit">SIM, Excluir Produto</button>
+        </form>
+    </div>
 {% endblock %}
