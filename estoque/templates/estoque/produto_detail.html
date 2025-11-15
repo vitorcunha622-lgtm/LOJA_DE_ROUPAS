@@ -3,17 +3,190 @@
 {% block title %}{{ object.nome }} - Detalhes{% endblock %}
 
 {% block content %}
-    <h2>{{ object.nome }}</h2>
-    
-    <p>
-        <a href="{% url 'editar_produto' object.pk %}">[Editar]</a>
-        <a href="{% url 'excluir_produto' object.pk %}">[Excluir]</a>
-        <a href="{% url 'lista_produtos' %}">[Voltar à Lista]</a>
-    </p>
+<style>
+    .detail-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
 
-    <table border="1" width="100%">
+    h2 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 0.5rem;
+    }
+
+    .action-links {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .action-links a {
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .btn-edit {
+        background: #3498db;
+        color: white;
+    }
+
+    .btn-edit:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+    }
+
+    .btn-delete {
+        background: #e74c3c;
+        color: white;
+    }
+
+    .btn-delete:hover {
+        background: #c0392b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+    }
+
+    .btn-back {
+        background: #95a5a6;
+        color: white;
+    }
+
+    .btn-back:hover {
+        background: #7f8c8d;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(149, 165, 166, 0.3);
+    }
+
+    .product-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        background: #f8f9fa;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .product-table th,
+    .product-table td {
+        padding: 1.2rem;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .product-table th {
+        background: #2c3e50;
+        color: white;
+        font-weight: 600;
+        width: 20%;
+        font-size: 1rem;
+    }
+
+    .product-table td {
+        background: white;
+        font-size: 1rem;
+    }
+
+    .product-table tr:last-child th,
+    .product-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .price-highlight {
+        color: #27ae60;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    .stock-highlight {
+        color: #e67e22;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    .empty-description {
+        color: #7f8c8d;
+        font-style: italic;
+    }
+
+    .product-info {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-top: 1.5rem;
+        text-align: center;
+        border-left: 4px solid #3498db;
+    }
+
+    .product-info strong {
+        color: #2c3e50;
+        font-size: 1.1rem;
+    }
+
+    .product-id {
+        background: #34495e;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        display: inline-block;
+        font-family: 'Courier New', monospace;
+    }
+
+    @media (max-width: 768px) {
+        .detail-container {
+            padding: 1rem;
+            margin: 1rem;
+        }
+
+        .action-links {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .action-links a {
+            width: 100%;
+            text-align: center;
+        }
+
+        .product-table th,
+        .product-table td {
+            padding: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<div class="detail-container">
+    <h2> {{ object.nome }}</h2>
+    
+    <div class="action-links">
+        <a href="{% url 'editar_produto' object.pk %}" class="btn-edit"> Editar</a>
+        <a href="{% url 'excluir_produto' object.pk %}" class="btn-delete">🗑️ Excluir</a>
+        <a href="{% url 'lista_produtos' %}" class="btn-back">↩️ Voltar à Lista</a>
+    </div>
+
+    <table class="product-table">
         <tr>
-            <th width="20%">Nome</th>
+            <th>Nome</th>
             <td>{{ object.nome }}</td>
         </tr>
         <tr>
@@ -22,22 +195,22 @@
                 {% if object.descricao %}
                     {{ object.descricao|linebreaksbr }}
                 {% else %}
-                    <em>Nenhuma descrição fornecida</em>
+                    <span class="empty-description">Nenhuma descrição fornecida</span>
                 {% endif %}
             </td>
         </tr>
         <tr>
             <th>Preço</th>
-            <td><strong>R$ {{ object.preco }}</strong></td>
+            <td><strong class="price-highlight">R$ {{ object.preco }}</strong></td>
         </tr>
         <tr>
             <th>Estoque</th>
-            <td><strong>{{ object.estoque }} unidades</strong></td>
+            <td><strong class="stock-highlight">{{ object.estoque }} unidades</strong></td>
         </tr>
     </table>
 
-    <br>
-    <div>
-        <p><strong>ID do Produto:</strong> {{ object.id }}</p>
+    <div class="product-info">
+        <p><strong>ID do Produto:</strong> <span class="product-id">{{ object.id }}</span></p>
     </div>
+</div>
 {% endblock %}

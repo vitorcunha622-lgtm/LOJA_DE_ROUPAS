@@ -1,0 +1,20 @@
+[33mc985e9c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: reset: moving to c985e9c6d7532e5ce0f6b147762e76fb88e67da1
+[33ma0bdf7c[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{1}: pull --rebase (finish): returning to refs/heads/main
+[33ma0bdf7c[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{2}: pull --rebase (pick): ajuste allowed hosts
+[33m65bc17f[m HEAD@{3}: pull --rebase (start): checkout 65bc17f0ed9c4600fd813391896835c0bc8831f9
+[33md556c18[m HEAD@{4}: commit: ajuste allowed hosts
+[33m8e3e68c[m HEAD@{5}: pull origin main --rebase (finish): returning to refs/heads/main
+[33m8e3e68c[m HEAD@{6}: pull origin main --rebase (pick): fix: adicionando dependencias do server
+[33m55f6b00[m HEAD@{7}: pull origin main --rebase (start): checkout 55f6b00d17d4eff4685e77660f6862a995b94231
+[33m36c30f9[m HEAD@{8}: commit: fix: adicionando dependencias do server
+[33ma39bd33[m HEAD@{9}: commit: feat: troocando o frontend e colocando css
+[33mea0dffd[m HEAD@{10}: commit: atualização do projeto
+[33m1d93831[m HEAD@{11}: commit: feat: adicionado arquivo .gitignore
+[33m2f86106[m HEAD@{12}: commit: docs: Corrige e finaliza a formatação do README
+[33mc985e9c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{13}: commit: docs: Finaliza e limpa a formatação do README
+[33m84b38f2[m HEAD@{14}: commit: docs: Finaliza e limpa a formatação do README
+[33m87ae5ab[m HEAD@{15}: commit: fix: Corrige formatação Markdown da lista CRUD no README
+[33mf72efe3[m HEAD@{16}: commit: fix: Corrige README removendo instruções internas do git
+[33m22d2082[m HEAD@{17}: commit: docs: adicionar README com documentação de setup
+[33m94bc933[m HEAD@{18}: commit: feat: Adiciona requirements.txt com dependências do projeto
+[33m2b25a28[m HEAD@{19}: commit (initial): Commit inicial do projeto

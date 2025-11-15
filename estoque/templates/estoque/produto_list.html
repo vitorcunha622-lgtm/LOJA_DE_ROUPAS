@@ -3,12 +3,245 @@
 {% block title %}Lista de Produtos{% endblock %}
 
 {% block content %}
-    <h2>Lista de Produtos</h2>
+<style>
+    .list-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 0.5rem;
+    }
+
+    .add-product {
+        display: inline-block;
+        background: #27ae60;
+        color: white;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .add-product:hover {
+        background: #219a52;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+    }
+
+    .products-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        background: #f8f9fa;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .products-table thead {
+        background: #2c3e50;
+    }
+
+    .products-table th {
+        color: white;
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .products-table td {
+        padding: 1rem;
+        border-bottom: 1px solid #dee2e6;
+        background: white;
+    }
+
+    .products-table tbody tr:hover {
+        background: #f8f9fa;
+        transform: translateY(-1px);
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .products-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .product-name {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .product-description {
+        color: #7f8c8d;
+        max-width: 300px;
+    }
+
+    .product-price {
+        color: #27ae60;
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    .product-stock {
+        color: #e67e22;
+        font-weight: 600;
+    }
+
+    .stock-low {
+        color: #e74c3c;
+        font-weight: 700;
+    }
+
+    .actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .btn-action {
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+    }
+
+    .btn-view {
+        background: #3498db;
+        color: white;
+    }
+
+    .btn-view:hover {
+        background: #2980b9;
+        transform: translateY(-1px);
+    }
+
+    .btn-edit {
+        background: #f39c12;
+        color: white;
+    }
+
+    .btn-edit:hover {
+        background: #d35400;
+        transform: translateY(-1px);
+    }
+
+    .btn-delete {
+        background: #e74c3c;
+        color: white;
+    }
+
+    .btn-delete:hover {
+        background: #c0392b;
+        transform: translateY(-1px);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: #7f8c8d;
+    }
+
+    .empty-state strong {
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
+
+    .empty-state a {
+        background: #3498db;
+        color: white;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .empty-state a:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .list-container {
+            padding: 1rem;
+            margin: 1rem;
+        }
+
+        .products-table {
+            display: block;
+            overflow-x: auto;
+        }
+
+        .products-table thead {
+            display: none;
+        }
+
+        .products-table tbody,
+        .products-table tr,
+        .products-table td {
+            display: block;
+            width: 100%;
+        }
+
+        .products-table tr {
+            margin-bottom: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 0.5rem;
+        }
+
+        .products-table td {
+            border: none;
+            padding: 0.5rem;
+            position: relative;
+            padding-left: 50%;
+        }
+
+        .products-table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0.5rem;
+            width: 45%;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .actions {
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<div class="list-container">
+    <h2>📋 Lista de Produtos</h2>
     
-    <p><a href="{% url 'criar_produto' %}">[+] Adicionar Novo Produto</a></p>
+    <a href="{% url 'criar_produto' %}" class="add-product"> Adicionar Novo Produto</a>
     
     {% if object_list %}
-        <table border="1" width="100%">
+        <table class="products-table">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -21,27 +254,36 @@
             <tbody>
                 {% for produto in object_list %}
                 <tr>
-                    <td>{{ produto.nome }}</td>
-                    <td>
+                    <td data-label="Nome" class="product-name">{{ produto.nome }}</td>
+                    <td data-label="Descrição" class="product-description">
                         {% if produto.descricao %}
                             {{ produto.descricao|truncatewords:10 }}
                         {% else %}
-                            -
+                            <span style="color: #bdc3c7; font-style: italic;">-</span>
                         {% endif %}
                     </td>
-                    <td>R$ {{ produto.preco }}</td>
-                    <td>{{ produto.estoque }} unidades</td>
-                    <td>
-                        <a href="{% url 'detalhe_produto' produto.pk %}">Ver</a> |
-                        <a href="{% url 'editar_produto' produto.pk %}">Editar</a> |
-                        <a href="{% url 'excluir_produto' produto.pk %}">Excluir</a>
+                    <td data-label="Preço" class="product-price">R$ {{ produto.preco }}</td>
+                    <td data-label="Estoque" class="product-stock {% if produto.estoque < 10 %}stock-low{% endif %}">
+                        {{ produto.estoque }} unidades
+                        {% if produto.estoque < 10 %} {% endif %}
+                    </td>
+                    <td data-label="Ações">
+                        <div class="actions">
+                            <a href="{% url 'detalhe_produto' produto.pk %}" class="btn-action btn-view"> Ver</a>
+                            <a href="{% url 'editar_produto' produto.pk %}" class="btn-action btn-edit"> Editar</a>
+                            <a href="{% url 'excluir_produto' produto.pk %}" class="btn-action btn-delete"> Excluir</a>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% else %}
-        <p><strong>Nenhum produto cadastrado.</strong></p>
-        <p><a href="{% url 'criar_produto' %}">Cadastrar Primeiro Produto</a></p>
+        <div class="empty-state">
+            <strong> Nenhum produto cadastrado.</strong>
+            <p>Comece adicionando seu primeiro produto ao sistema.</p>
+            <a href="{% url 'criar_produto' %}"> Cadastrar Primeiro Produto</a>
+        </div>
     {% endif %}
+</div>
 {% endblock %}
