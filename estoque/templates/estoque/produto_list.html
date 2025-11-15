@@ -4,6 +4,7 @@
 
 {% block content %}
 <style>
+    /* ATENÇÃO: É recomendável mover este CSS para um arquivo estático (main.css) */
     .list-container {
         max-width: 1200px;
         margin: 0 auto;
@@ -265,7 +266,7 @@
                     <td data-label="Preço" class="product-price">R$ {{ produto.preco }}</td>
                     <td data-label="Estoque" class="product-stock {% if produto.estoque < 10 %}stock-low{% endif %}">
                         {{ produto.estoque }} unidades
-                        {% if produto.estoque < 10 %} {% endif %}
+                        {% if produto.estoque < 10 %} ⚠️ Baixo{% endif %}
                     </td>
                     <td data-label="Ações">
                         <div class="actions">

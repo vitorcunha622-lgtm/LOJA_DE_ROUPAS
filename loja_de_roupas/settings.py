@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,11 @@ SECRET_KEY = 'django-insecure-9+lbe5l!cppx*k3^@8#(2phc*)dk$=1rq^zy$&0$bcj+w(_xj-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',  
+    'localhost',  
+]
+
 
 
 # Application definition
@@ -75,11 +81,13 @@ WSGI_APPLICATION = 'loja_de_roupas.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # O valor correto para o ENGINE SQLite é este:
+        'ENGINE': 'django.db.backends.sqlite3', 
+        
+        # O arquivo do banco de dados será criado na raiz do projeto
+        'NAME': BASE_DIR / 'db.sqlite3', 
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

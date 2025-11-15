@@ -1,9 +1,3 @@
-git clone [https://github.com/vitorcunha622-lgtm/loja-de-roupa.git](https://github.com/vitorcunha622-lgtm/loja-de-roupa.git)
-cd LOJA_DE_ROUPAS
-
-🚀 Template README.md para Projeto Django
-Markdown
-
 # 🛍️ [Nome do Projeto]: CRUD de Loja de Roupas
 
 ## 📋 Sobre o Projeto
@@ -73,6 +67,10 @@ Bash
 O projeto estará acessível em: http://127.0.0.1:8000/
 
 👤 Autor(es)
-[Victor] - @SeuUsuarioNoGitHub
+[Victor] -
 
-[Rhuan] - @Colega1
+[Rhuan] - 
+
+[HEVELLYN] -
+
+[ANA] -
