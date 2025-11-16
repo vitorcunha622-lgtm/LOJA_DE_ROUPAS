@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
+import dj_database_url # Importa o módulo para configuração de banco de dados (útil em produção)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR é o diretório raiz do seu projeto Django.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -22,47 +23,57 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# Chave secreta usada para segurança, criptografia e hashing de senhas.
 SECRET_KEY = 'django-insecure-9+lbe5l!cppx*k3^@8#(2phc*)dk$=1rq^zy$&0$bcj+w(_xj-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True mostra erros detalhados. Mudar para False em produção!
 DEBUG = True
 
+# Lista de hosts permitidos para acessar a aplicação (proteção de segurança)
 ALLOWED_HOSTS = [
-    '127.0.0.1',  
-    'localhost',  
+    '127.0.0.1',    # Acesso local
+    'localhost',    # Acesso local
 ]
-
 
 
 # Application definition
+# ----------------------
 
+# Lista de todas as aplicações ativas no projeto.
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'estoque',
+    # Aplicações padrão do Django:
+    'django.contrib.admin',         # Interface de administração
+    'django.contrib.auth',          # Sistema de autenticação e usuários
+    'django.contrib.contenttypes',  # Tipos de conteúdo para modelos
+    'django.contrib.sessions',      # Gerenciamento de sessões
+    'django.contrib.messages',      # Sistema de mensagens (ex: sucesso ao salvar)
+    'django.contrib.staticfiles',   # Gerenciamento de arquivos estáticos (CSS, JS)
+    
+    # Suas aplicações personalizadas:
+    'estoque',                      # A sua aplicação de estoque
 ]
 
+# Camadas de processamento que lidam com requisições e respostas (segurança, sessões, etc.)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', # Proteção contra ataques CSRF
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # Gerencia sessões de login
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Arquivo principal de rotas (URLs) do projeto
 ROOT_URLCONF = 'loja_de_roupas.urls'
 
+# Configuração de Templates (como o Django renderiza HTML)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates', 
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [], # Diretórios onde procurar templates (fora das apps)
+        'APP_DIRS': True, # Permite que o Django procure templates dentro das pastas de cada app
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
@@ -73,25 +84,26 @@ TEMPLATES = [
     },
 ]
 
+# Ponto de entrada para servidores web (WSGI - Web Server Gateway Interface)
 WSGI_APPLICATION = 'loja_de_roupas.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# --------
 
+# Configurações do banco de dados (padrão 'default')
 DATABASES = {
     'default': {
-        # O valor correto para o ENGINE SQLite é este:
+        # O ENGINE especifica o tipo de banco de dados (SQLite3, PostgreSQL, MySQL, etc.)
         'ENGINE': 'django.db.backends.sqlite3', 
         
-        # O arquivo do banco de dados será criado na raiz do projeto
+        # O arquivo do banco de dados será criado na raiz do projeto (db.sqlite3)
         'NAME': BASE_DIR / 'db.sqlite3', 
     }
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+# Password validation (Regras de segurança para senhas de usuários)
+# -------------------
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -108,24 +120,28 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
+# Internationalization (Internacionalização)
+# --------------------
 
-LANGUAGE_CODE = 'en-us'
+# Idioma padrão da aplicação
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+# Fuso horário padrão. Mude para 'America/Sao_Paulo' se necessário.
+TIME_ZONE = 'America/Sao_Paulo'
 
+# Ativa o sistema de internacionalização (tradução)
 USE_I18N = True
 
+# Ativa o suporte a fusos horários no Django
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+# --------------------
 
+# O prefixo de URL para arquivos estáticos (ex: /static/css/style.css)
 STATIC_URL = 'static/'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
+# Define o tipo de campo padrão para chaves primárias (IDs) em modelos do BD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
